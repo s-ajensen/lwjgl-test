@@ -54,7 +54,7 @@
           :dev  {:main-opts ["-m" "lwjgl-test.dev"]}
           :dev- {:main-opts ["-m" "lwjgl-test.dev" "cljs" "css"]}
           :repl {:jvm-opts ["-XstartOnFirstThread"] :main-opts ["-e" "(require,'lwjgl-test.repl)" "-e" "(in-ns,'lwjgl-test.repl)" "--repl"] :extra-paths ["dev"]}
-          :run  {:main-opts ["-m" "lwjgl-test.main"]}
+          :run  {:jvm-opts ["-XstartOnFirstThread"] :main-opts ["-m" "lwjgl-test.main"]}
           :spec {:main-opts ["-m" "speclj.main" "-c"]}
           }
 }
