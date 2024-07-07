@@ -1,0 +1,60 @@
+{
+ :paths     ["src/clj" "src/cljc" "resources"]
+ :mvn/repos {"maven_central" {:url "https://repo.maven.apache.org/maven2/"}}
+ :deps      {org.lwjgl/lwjgl               {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-assimp        {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-bgfx          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-cuda          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-egl           {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-fmod          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-freetype      {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-glfw          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-harfbuzz      {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-hwloc         {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-jawt          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-jemalloc      {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-ktx           {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-libdivide     {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-llvm          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-lmdb          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-lz4           {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-meow          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-meshoptimizer {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-nanovg        {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-nfd           {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-nuklear       {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-odbc          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-openal        {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-opencl        {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-opengl        {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-opengles      {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-opus          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-par           {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-remotery      {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-rpmalloc      {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-shaderc       {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-spvc          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-stb           {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-tinyexr       {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-tinyfd        {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-vma           {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-vulkan        {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-xxhash        {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-yoga          {:mvn/version "3.3.3"}
+             org.lwjgl/lwjgl-zstd          {:mvn/version "3.3.3"}
+             com.cleancoders.c3kit/apron   {:git/url "git@github.com:cleancoders/c3kit-apron.git" :git/sha "5b71141c3f4a96af0b68841aa44e089ab59cb505"}
+             org.clojure/clojure           {:mvn/version "1.11.1"}}
+:aliases {
+          :test {:extra-deps  {
+                               speclj/speclj {:mvn/version "3.4.5"}
+                               }
+                 :extra-paths ["dev" "spec/clj" "spec/cljc"]}
+          :cljs {:main-opts ["-m" "c3kit.scaffold.cljs"]}
+          :css  {:main-opts ["-m" "c3kit.scaffold.css"]}
+          :dev  {:main-opts ["-m" "lwjgl-test.dev"]}
+          :dev- {:main-opts ["-m" "lwjgl-test.dev" "cljs" "css"]}
+          :repl {:jvm-opts ["-XstartOnFirstThread"] :main-opts ["-e" "(require,'lwjgl-test.repl)" "-e" "(in-ns,'lwjgl-test.repl)" "--repl"] :extra-paths ["dev"]}
+          :run  {:main-opts ["-m" "lwjgl-test.main"]}
+          :spec {:main-opts ["-m" "speclj.main" "-c"]}
+          }
+}
