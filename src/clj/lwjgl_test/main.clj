@@ -1,7 +1,13 @@
 (ns lwjgl-test.main
+  (:require [c3kit.apron.corec :as ccc])
   (:import [org.lwjgl.glfw Callbacks GLFW GLFWErrorCallback GLFWVidMode]
            [org.lwjgl.opengl GL GL11]
            [org.lwjgl.system MemoryStack MemoryUtil]))
+
+(def last-rendered-at (atom 0))
+(defn delta-time []
+  (- (GLFW/glfwGetTime) @last-rendered-at))
+(def speed 1e1)
 
 (defn init [window-atom]
   (let [error-callback (GLFWErrorCallback/createPrint System/err)]
@@ -25,8 +31,16 @@
               (GLFW/glfwSetWindowPos w (/ (- (.width vidmode) (.get pWidth 0)) 2)
                                      (/ (- (.height vidmode) (.get pHeight 0)) 2))))
           (GLFW/glfwMakeContextCurrent w)
-          (GLFW/glfwSwapInterval 1)
+          (GLFW/glfwSwapInterval 0)
           (GLFW/glfwShowWindow w))))))
+
+(defn draw-triangle []
+  (GL11/glColor3f 1.0 1.0 1.0)
+  (GL11/glBegin GL11/GL_TRIANGLES)
+  (GL11/glVertex2f -0.5 -0.5)
+  (GL11/glVertex2f 0.5 -0.5)
+  (GL11/glVertex2f 0.0 0.5)
+  (GL11/glEnd))
 
 (defn loop-fn [window-atom]
   (GL/createCapabilities)
@@ -37,14 +51,17 @@
     (GL11/glClear (bit-or GL11/GL_COLOR_BUFFER_BIT GL11/GL_DEPTH_BUFFER_BIT))
 
     (GL11/glColor3f 1.0 1.0 1.0)
-    (GL11/glBegin GL11/GL_TRIANGLES)
-    (GL11/glVertex2f -0.5 -0.5)
-    (GL11/glVertex2f 0.5 -0.5)
-    (GL11/glVertex2f 0.0 0.5)
-    (GL11/glEnd)
+    (GL11/glPushMatrix)
+    (GL11/glTranslatef 0.0 0.0 0.0)
+    (GL11/glRotatef (* speed (GLFW/glfwGetTime)) 0.0 0.0 1.0)
+
+    (draw-triangle)
+
+    (GL11/glPopMatrix)
 
     (GLFW/glfwSwapBuffers @window-atom)
-    (GLFW/glfwPollEvents)))
+    (GLFW/glfwPollEvents)
+    (reset! last-rendered-at (GLFW/glfwGetTime))))
 
 (defn -main []
   (let [window (atom nil)]
